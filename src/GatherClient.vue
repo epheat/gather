@@ -32,6 +32,7 @@
 
 import axios from 'axios';
 import SimonSays from './components/SimonSays.vue';
+import PictionaryTelephone from './components/PictionaryTelephone.vue';
 // import other game frontends here
 
 export default {
@@ -65,7 +66,8 @@ export default {
   },
 
   components: {
-    'SimonSays': SimonSays
+    'SimonSays': SimonSays,
+    'PictionaryTelephone': PictionaryTelephone
   }
 }
 </script>

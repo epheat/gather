@@ -3,6 +3,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+// TODO: replace shortid with our own implementation for simpler, 4-character codes.
 var shortid = require('shortid');
 shortid.characters('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!?');
 
