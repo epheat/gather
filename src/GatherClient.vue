@@ -8,8 +8,8 @@
       </p>
       <p>
         Join an existing game:
-        <input type="text"></input>
-        <button>Join</button>
+        <input type="text" v-model="gameID"></input>
+        <button @click="joinGame()">Join</button>
       </p>
       <h2>Or start a new game:</h2>
       <div class="row games-container">
@@ -42,21 +42,34 @@ export default {
       nickname: "",
       playingGame: false,
       gameComponent: "",
+      gameID: "",
       games: [
-        { name: "simon says", component: "SimonSays" },
-        { name: "pictionary telephone", component: "" },
-        { name: "random", component: "" }
+        { name: "simon says", gameType: "SimonSays" },
+        { name: "pictionary telephone", gameType: "" },
+        { name: "random", gameType: "" }
       ]
     }
   },
 
   methods: {
     newGame: function(index) {
-      // TODO: use axios to make a newGame http request to the backend
-      axios.post('/newGame', { nickname: this.nickname, game: this.games[index].name })
+      // use axios to make a newGame http request to the backend
+      axios.post('/newGame', { nickname: this.nickname, gameType: this.games[index].gameType, numPlayers: 4 })
       .then( response => {
         console.log(response.data);
-        this.gameComponent = this.games[index].component;
+        this.gameComponent = this.games[index].gameType;
+        this.playingGame = true;
+      })
+      .catch( error => {
+        console.log(error);
+      })
+    },
+    joinGame: function() {
+      // use axios to make a joinGame http request to the backend
+      axios.post('/joinGame', { gameID: this.gameID, nickname: this.nickname })
+      .then( response => {
+        console.log(response.data);
+        this.gameComponent = response.data;
         this.playingGame = true;
       })
       .catch( error => {
