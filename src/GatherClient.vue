@@ -29,7 +29,7 @@
               <option value=6>6</option>
             </select>
             <br>
-            <button @click="newGame(index)">New Game</button>
+            <button class="button-style-1" @click="newGame(index)">New Game</button>
           </div>
         </div>
       </div>
