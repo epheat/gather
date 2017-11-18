@@ -22,7 +22,7 @@
 
     <div id="gamePlayer">
       <h1>{{ gameComponent }}</h1>
-      <component :is="gameComponent"></component>
+      <component :is="gameComponent" :gameID="gameID"></component>
     </div>
 
   </div>
@@ -57,6 +57,7 @@ export default {
       axios.post('/newGame', { nickname: this.nickname, gameType: this.games[index].gameType, numPlayers: 4 })
       .then( response => {
         console.log(response.data);
+        this.gameID = response.data;
         this.gameComponent = this.games[index].gameType;
         this.playingGame = true;
       })
