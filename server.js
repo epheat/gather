@@ -4,6 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var shortid = require('shortid');
+shortid.characters('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!?');
 
 // Create an app using Express framework
 var app = express();
@@ -21,3 +22,11 @@ var server = app.listen(port, function () {
 app.use(express.static(path.join(__dirname, 'public')));
 
 var io = require('socket.io')(server);
+
+app.post('/newGame', function(request, response) {
+  var gameID = shortid.generate();
+  var nick = request.body.nickname;
+  var game = request.body.game;
+
+  response.send(gameID);
+})
