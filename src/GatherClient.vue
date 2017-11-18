@@ -12,10 +12,25 @@
         <button @click="joinGame()">Join</button>
       </p>
       <h2>Or start a new game:</h2>
+      <p>
+        Search Game:
+        <input type="text" id="searchGame" v-model="searchTerm"></input>
+      </p>
       <div class="row games-container">
-        <div class="game col-xs-6 col-sm-4 col-md-3" v-for="(game, index) in games">
-          <h3>{{ game.name }}</h3>
-          <button @click="newGame(index)">New Game</button>
+        <div class="game-container col-xs-12 col-sm-6 col-md-4" v-for="(game, index) in filteredGameList">
+          <div class="game">
+            <h3>{{ game.name }}</h3>
+            <b>Number of players</b>
+            <select id="numPlayers">
+              <option value=2>2</option>
+              <option value=3>3</option>
+              <option value=4>4</option>
+              <option value=5>5</option>
+              <option value=6>6</option>
+            </select>
+            <br>
+            <button @click="newGame(index)">New Game</button>
+          </div>
         </div>
       </div>
     </div>
@@ -44,10 +59,13 @@ export default {
       gameComponent: "",
       gameID: "",
       games: [
-        { name: "simon says", gameType: "SimonSays" },
-        { name: "pictionary telephone", gameType: "" },
-        { name: "random", gameType: "" }
-      ]
+        { name: "Simon Says", gameType: "SimonSays" },
+        { name: "Pictionary Telephone", gameType: "" },
+        { name: "Go Fish", gameType: "" },
+        { name: "Poker", gameType: "" },
+        { name: "Roullete", gameType: "" }
+      ],
+      searchTerm: ""
     }
   },
 
@@ -79,6 +97,16 @@ export default {
     }
   },
 
+  computed: {
+
+    // whenever you start searching for a game, in real time it reduces down to the game you've searched for
+    filteredGameList: function() {
+      return this.games.filter(game => {
+        return game.name.includes(this.searchTerm);
+      })
+    }
+  },
+
   components: {
     'SimonSays': SimonSays,
     'PictionaryTelephone': PictionaryTelephone
@@ -93,10 +121,18 @@ export default {
 .games-container {
   padding-top: 5px;
 }
+
+.game-container {
+  padding: 5px; /* center everything in game square */
+}
+
+.game-container h3 {
+  padding-top: 50px;
+}
+
 .game {
   background-color: grey;
-  height: 100px;
-  display: inline-block;
+  height: 250px;
 }
 .game h3 {
   margin-top: 2px;
