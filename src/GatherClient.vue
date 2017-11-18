@@ -131,10 +131,20 @@ export default {
   padding-top: 50px;
 }
 
-.game {
-  background-color: grey;
-  height: 250px;
+.button-style-1 {
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #2ECC71;
+  border-bottom: 4px solid #27AE60;
 }
+.game {
+  background-color: #18bbbb;
+  height: 250px;
+  box-shadow: 1px 1px 10px #666;
+}
+
 .game h3 {
   margin-top: 2px;
 }
