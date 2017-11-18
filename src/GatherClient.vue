@@ -21,7 +21,7 @@
           <div class="game">
             <h3>{{ game.name }}</h3>
             <b>Number of players</b>
-            <select id="numPlayers">
+            <select id="numPlayers" v-model="game.numPlayers">
               <option value=2>2</option>
               <option value=3>3</option>
               <option value=4>4</option>
@@ -59,11 +59,11 @@ export default {
       gameComponent: "",
       gameID: "",
       games: [
-        { name: "Simon Says", gameType: "SimonSays" },
-        { name: "Pictionary Telephone", gameType: "" },
-        { name: "Go Fish", gameType: "" },
-        { name: "Poker", gameType: "" },
-        { name: "Roullete", gameType: "" }
+        { name: "Simon Says", gameType: "SimonSays", numPlayers: 2 },
+        { name: "Pictionary Telephone", gameType: "", numPlayers: 2 },
+        { name: "Go Fish", gameType: "", numPlayers: 2 },
+        { name: "Poker", gameType: "", numPlayers: 2 },
+        { name: "Roullete", gameType: "", numPlayers: 2 }
       ],
       searchTerm: ""
     }
@@ -72,7 +72,8 @@ export default {
   methods: {
     newGame: function(index) {
       // use axios to make a newGame http request to the backend
-      axios.post('/newGame', { nickname: this.nickname, gameType: this.games[index].gameType, numPlayers: 4 })
+      console.log(this.games[index].numPlayers)
+      axios.post('/newGame', { nickname: this.nickname, gameType: this.games[index].gameType, numPlayers: this.games[index].numPlayers })
       .then( response => {
         console.log(response.data);
         this.gameID = response.data;
