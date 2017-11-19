@@ -2,7 +2,7 @@
   <div id="app">
     <div id="game-selector" v-if="!playingGame">
       <div class="start-box">
-        <h1>Gather</h1><hr>
+        <img src="logo.png" id="logo" alt="gather logo">
         <div class="container game-menu">
           <div class="col-md-6 join-section">
             <input type="text" placeholder="Username (Required)" id="nickname" v-model="nickname"></input>
@@ -34,7 +34,7 @@
     </div>
 
     <div id="gamePlayer">
-      <h1>{{ gameComponent }}</h1>
+      <h1 id="game-title">{{ gameComponent }}</h1>
       <component :is="gameComponent" :gameID="gameID" :nickname="nickname"></component>
     </div>
 
@@ -164,6 +164,26 @@ input[type="text"] {
   border: none;
   padding: 10px;
   outline: none;
+}
+
+@media (max-width: 452px) {
+  #nickname, #gameID {
+    width: 42.4%;
+  }
+}
+
+@media (max-width: 991px) {
+  #searchGame {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+img#logo {
+    width: 200px;
+}
+#searchGame {
+    border-radius: 5px;
 }
 
 .join-section {

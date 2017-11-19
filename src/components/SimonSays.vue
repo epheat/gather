@@ -3,7 +3,7 @@
 
 <template>
   <div class="component-container">
-    {{ message }}
+    <p id="game-message">{{ message }}</p>
     <button v-if="mayStartGame" @click="startGame">Start game!</button>
 
     <div :style="simonButtonStyle" class="simon-button" @click="pressButton"></div>
@@ -106,13 +106,19 @@ export default {
 .component-container {
 
 }
+#game-title, #game-message {
+  position: absolute;
+  color: white;
+  padding: 50px;
+}
+#game-message {
+  margin-top: 65px;
+}
 .simon-button {
-  margin: 0 auto;
-  max-width: 250px;
   height: 250px;
   background-color: green;
   cursor: pointer;
-
+  height: 100vh;
   transition: background-color 0.05s;
 }
 .white {
