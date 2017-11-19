@@ -132,6 +132,7 @@ export default {
 }
 
 .button-style-1 {
+  margin-top: 20px;
   border: none;
   border-radius: 4px;
   padding: 10px 20px;
