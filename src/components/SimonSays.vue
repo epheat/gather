@@ -4,13 +4,13 @@
 <template>
   <div class="component-container">
     <p id="game-message">{{ message }}</p>
-    <button id="start-game" v-if="mayStartGame" @click="startGame">Start game!</button>
+    <button id="start-game" class="button-style-1" v-if="mayStartGame" @click="startGame">Start game!</button>
 
     <div :style="simonButtonStyle" class="simon-button" @click="pressButton"></div>
 
     <!-- <button @click="debug">debug</button> -->
 
-    <div id="losted" v-if="losted">You losted.</div>
+    <div id="losted" v-if="losted"><h1>You losted.</h1></div>
 
 
   </div>
@@ -126,5 +126,27 @@ export default {
 }
 #start-game {
   position: absolute;
+}
+.button-style-1 {
+  margin-top: 20px;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #2ECC71;
+  border-bottom: 4px solid #27AE60;
+  transition: 300ms;
+}
+.button-style-1:hover, .button-style-1:focus {
+  background-color: #2d72e2;
+  border-bottom: 4px solid #2055aa;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+#losted {
+  position: absolute;
+  color: white;
+  left: 5%;
+  bottom: 5%;
 }
 </style>
