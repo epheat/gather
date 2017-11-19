@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="game-selector" v-if="!playingGame">
+<<<<<<< HEAD
       <div class="start-box">
         <h1>Gather</h1><hr>
         <div class="container game-menu">
@@ -16,6 +17,25 @@
       <div class="games-container">
         <div :class="{'col-md-4': filteredGameList.length == 1, 'col-md-2':filteredGameList.length == 2}"></div>
         <div class="game-container col-xs-12 col-sm-6 col-md-4"  v-for="(game, index) in filteredGameList">
+=======
+      <h1>Gather</h1><hr>
+      <p>
+        Provide a Nickname:
+        <input type="text" placeholder="Username (Required)" v-model="nickname"></input>
+      </p>
+      <p>
+        Join an Existing Game:
+        <input type="text" placeholder="Game ID" v-model="gameID"></input>
+        <button @click="joinGame()">Join</button>
+      </p>
+      <h2>Or Start a New Game:</h2>
+      <p>
+        Search Game:
+        <input type="text" id="searchGame" placeholder="Search Game" v-model="searchTerm"></input>
+      </p>
+      <div class="row games-container">
+        <div class="game-container col-xs-12 col-sm-6 col-md-4 col-md-offset-" v-for="(game, index) in filteredGameList">
+>>>>>>> 416f5e98bc61f623cccf7039f73804fbb0ac213f
           <div class="game" :style='"background: url(" + game.img + ") #000; background-size: 100%;"'>
             <h3>{{ game.name }}</h3>
             <b>Number of players</b>
@@ -64,6 +84,7 @@ export default {
         { name: "Roulette", gameType: "", numPlayers: 2, img: 'roulette.png' },
         { name: "Blackjack", gameType: "", numPlayers: 2, img: 'blackjack.png' }
       ],
+      offset: [0,4,2,0],
       searchTerm: ""
     }
   },
