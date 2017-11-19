@@ -104,7 +104,8 @@ export default {
     // whenever you start searching for a game, in real time it reduces down to the game you've searched for
     filteredGameList: function() {
       return this.games.filter(game => {
-        return game.name.includes(this.searchTerm);
+        var gameName = game.name.toLowerCase() // disregard capitalization filter results
+        return gameName.includes(this.searchTerm);
       })
     }
   },
