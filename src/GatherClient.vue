@@ -6,7 +6,7 @@
         <div class="container game-menu">
           <div class="col-md-6 join-section">
             <input type="text" required placeholder="Username" id="nickname" v-model="nickname"></input>
-            <input type="text" placeholder="Game ID" id="gameID" v-model="gameID"></input><button id="join-button" @click="joinGame()">Join</button>
+            <input type="text" placeholder="Game ID" id="gameID" v-model="gameID" required></input><button id="join-button" @click="joinGame()"  :disabled='nickname == ""'>Join</button>
           </div>
           <div class="col-md-4 col-md-offset-2">
             <input type="text" id="searchGame" placeholder="Search Game" v-model="searchTerm"></input>

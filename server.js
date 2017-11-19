@@ -59,6 +59,10 @@ gatherSocket.on('connection', socket => {
           games[i].sequenceProgress++;
           if (games[i].sequenceProgress == games[i].sequence.length) {
             console.log("well done. adding another color to the sequence.");
+            games[i].score += games[i].round*50;
+            console.log("score" + games[i].score);
+            gatherSocket.in(games[i].gameID).emit('score', games[i].score);
+            games[i].round++;
             games[i].sequenceProgress = 0;
             games[i].sequence.push(Math.floor(Math.random() * games[i].players.length));
             games[i].flashInSequence(0);
@@ -80,6 +84,8 @@ function Game(gameType, ownerNick, ownerIP, numPlayers) {
   this.timestamp = Date.now();
   this.gameID = generateID(4);
   this.numPlayers = numPlayers;
+  this.score = 0;
+  this.round = 1;
   this.players = [{ 'nick': ownerNick, 'ip': ownerIP }];
   // TODO: as long as a game exists with that gameID, keep regenerating IDs
 
@@ -102,6 +108,7 @@ function Game(gameType, ownerNick, ownerIP, numPlayers) {
       // first sequence is 4 long.
       this.sequence = [Math.floor(Math.random()*this.players.length), Math.floor(Math.random()*this.players.length), Math.floor(Math.random()*this.players.length), Math.floor(Math.random()*this.players.length), Math.floor(Math.random()*this.players.length), Math.floor(Math.random()*this.players.length)];
       this.flashInSequence(0);
+
     } else if (this.gameType == "PictionaryTelephone") {
 
     }

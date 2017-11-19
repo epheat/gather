@@ -11,6 +11,8 @@
 
     <!-- <button @click="debug">debug</button> -->
 
+    <div id="score-div" v-if="playing || losted"><h3 id="score-num">Score: {{score}}</h3></div>
+
     <div id="losted" v-if="losted"><h1>You losted.</h1></div>
 
 
@@ -31,6 +33,7 @@ export default {
     return {
       color: { red: 0, green: 0, blue: 0 },
       mayStartGame: false,
+      score: 0,
       message: "Waiting for other players...",
       flashing: false,
       seat: 0,
@@ -57,6 +60,9 @@ export default {
     socket.on('lose', data => {
       this.losted = true;
       this.playing = false;
+    });
+    socket.on('score', data => {
+      this.score = data;
     });
     socket.emit('room', {'gameID': this.gameID, 'nick': this.nickname}, seat => {
       this.seat = seat;
@@ -117,6 +123,12 @@ export default {
 }
 #game-ID{
   margin-top: -20px;
+}
+#score-num {
+  position: absolute;
+  top: 0;
+  right: 5%;
+  color: white;
 }
 .simon-button {
   height: 250px;
