@@ -34,7 +34,7 @@
     </div>
 
     <div id="gamePlayer">
-      <h1 id="game-title">{{ gameComponent }}</h1>
+      <h1 id="game-title" v-if="playingGame">{{ gameComponent }}</h1>
       <component :is="gameComponent" :gameID="gameID" :nickname="nickname"></component>
     </div>
 
@@ -56,6 +56,7 @@ export default {
       playingGame: false,
       gameComponent: "",
       gameID: "",
+      noGameFound: false,
       games: [
         { name: "Simon Says", gameType: "SimonSays", numPlayers: 2, img: 'simon.png' },
         { name: "Pictionary Telephone", gameType: "", numPlayers: 2, img: 'pictionary.png' },
@@ -89,7 +90,16 @@ export default {
       .then( response => {
         console.log(response.data);
         this.gameComponent = response.data;
-        this.playingGame = true;
+        if(this.gameComponent == "Game full."){
+          alert("Game Full!");
+          this.playingGame = false;
+        }
+        else if(this.gameComponent == "No Game Found"){
+          alert("No Game Found!");
+          this.playingGame = false;
+        }
+        else
+          this.playingGame = true;
       })
       .catch( error => {
         console.log(error);
