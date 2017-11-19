@@ -18,7 +18,7 @@
       </p>
       <div class="row games-container">
         <div class="game-container col-xs-12 col-sm-6 col-md-4" v-for="(game, index) in filteredGameList">
-          <div class="game">
+          <div class="game" :style='"background: url(" + game.img + ") #000; background-size: 100%;"'>
             <h3>{{ game.name }}</h3>
             <b>Number of players</b>
             <select id="numPlayers" v-model="game.numPlayers">
@@ -59,11 +59,11 @@ export default {
       gameComponent: "",
       gameID: "",
       games: [
-        { name: "Simon Says", gameType: "SimonSays", numPlayers: 2 },
-        { name: "Pictionary Telephone", gameType: "", numPlayers: 2 },
-        { name: "Go Fish", gameType: "", numPlayers: 2 },
-        { name: "Poker", gameType: "", numPlayers: 2 },
-        { name: "Roullete", gameType: "", numPlayers: 2 }
+        { name: "Simon Says", gameType: "SimonSays", numPlayers: 2, img: 'simon.png' },
+        { name: "Pictionary Telephone", gameType: "", numPlayers: 2, img: 'pictionary.png' },
+        { name: "Go Fish", gameType: "", numPlayers: 2, img: 'gofish.png' },
+        { name: "Poker", gameType: "", numPlayers: 2, img: 'poker.png' },
+        { name: "Roulette", gameType: "", numPlayers: 2, img: 'roulette.png' }
       ],
       searchTerm: ""
     }
@@ -139,10 +139,17 @@ export default {
   background-color: #2ECC71;
   border-bottom: 4px solid #27AE60;
 }
+.button-style-1:hover, .button-style-1:focus {
+  background-color: #2d72e2;
+  border-bottom: 4px solid #2055aa;
+}
 .game {
-  background-color: #18bbbb;
   height: 250px;
   box-shadow: 1px 1px 10px #666;
+  color: white;
+}
+select {
+  color: black;
 }
 
 .game h3 {
