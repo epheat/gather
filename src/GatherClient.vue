@@ -18,10 +18,10 @@
       </p>
       <div class="row games-container">
         <div class="game-container col-xs-12 col-sm-6 col-md-4" v-for="(game, index) in filteredGameList">
-          <div class="game">
+          <div class="game" :style='"background: url(" + game.img + ") #000; background-size: 100%;"'>
             <h3>{{ game.name }}</h3>
             <b>Number of players</b>
-            <select id="numPlayers">
+            <select id="numPlayers" v-model="game.numPlayers">
               <option value=2>2</option>
               <option value=3>3</option>
               <option value=4>4</option>
@@ -29,7 +29,7 @@
               <option value=6>6</option>
             </select>
             <br>
-            <button @click="newGame(index)">New Game</button>
+            <button class="button-style-1" @click="newGame(index)">New Game</button>
           </div>
         </div>
       </div>
@@ -59,11 +59,11 @@ export default {
       gameComponent: "",
       gameID: "",
       games: [
-        { name: "Simon Says", gameType: "SimonSays" },
-        { name: "Pictionary Telephone", gameType: "" },
-        { name: "Go Fish", gameType: "" },
-        { name: "Poker", gameType: "" },
-        { name: "Roullete", gameType: "" }
+        { name: "Simon Says", gameType: "SimonSays", numPlayers: 2, img: 'simon.png' },
+        { name: "Pictionary Telephone", gameType: "", numPlayers: 2, img: 'pictionary.png' },
+        { name: "Go Fish", gameType: "", numPlayers: 2, img: 'gofish.png' },
+        { name: "Poker", gameType: "", numPlayers: 2, img: 'poker.png' },
+        { name: "Roulette", gameType: "", numPlayers: 2, img: 'roulette.png' }
       ],
       searchTerm: ""
     }
@@ -72,7 +72,8 @@ export default {
   methods: {
     newGame: function(index) {
       // use axios to make a newGame http request to the backend
-      axios.post('/newGame', { nickname: this.nickname, gameType: this.games[index].gameType, numPlayers: 2 })
+      console.log(this.games[index].numPlayers)
+      axios.post('/newGame', { nickname: this.nickname, gameType: this.games[index].gameType, numPlayers: this.games[index].numPlayers })
       .then( response => {
         console.log(response.data);
         this.gameID = response.data;
@@ -130,10 +131,27 @@ export default {
   padding-top: 50px;
 }
 
-.game {
-  background-color: grey;
-  height: 250px;
+.button-style-1 {
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #2ECC71;
+  border-bottom: 4px solid #27AE60;
 }
+.button-style-1:hover, .button-style-1:focus {
+  background-color: #2d72e2;
+  border-bottom: 4px solid #2055aa;
+}
+.game {
+  height: 250px;
+  box-shadow: 1px 1px 10px #666;
+  color: white;
+}
+select {
+  color: black;
+}
+
 .game h3 {
   margin-top: 2px;
 }
