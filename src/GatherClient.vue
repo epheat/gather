@@ -3,21 +3,26 @@
     <div id="game-selector" v-if="!playingGame">
       <h1>Gather</h1><hr>
       <p>
-        Provide a nickname:
-        <input type="text" v-model="nickname"></input>
+        Provide a Nickname:
+        <input type="text" placeholder="Username (Required)" v-model="nickname"></input>
       </p>
       <p>
-        Join an existing game:
-        <input type="text" v-model="gameID"></input>
+        Join an Existing Game:
+        <input type="text" placeholder="Game ID" v-model="gameID"></input>
         <button @click="joinGame()">Join</button>
       </p>
-      <h2>Or start a new game:</h2>
+      <h2>Or Start a New Game:</h2>
       <p>
         Search Game:
-        <input type="text" id="searchGame" v-model="searchTerm"></input>
+        <input type="text" id="searchGame" placeholder="Search Game" v-model="searchTerm"></input>
       </p>
+<<<<<<< HEAD
       <div class="row games-container">
         <div class='"game-container col-xs-12 col-sm-6 col-md-4 col-md-offset-' offset[filteredGameList.length]'"' :class="'hi'" v-for="(game, index) in filteredGameList">
+=======
+      <div class="games-container">
+        <div class="game-container col-xs-12 col-sm-6 col-md-4" v-for="(game, index) in filteredGameList">
+>>>>>>> 9b4c38271d20f5f5c4abcd93fb63ca00d2b75d73
           <div class="game" :style='"background: url(" + game.img + ") #000; background-size: 100%;"'>
             <h3>{{ game.name }}</h3>
             <b>Number of players</b>
@@ -37,7 +42,7 @@
 
     <div id="gamePlayer">
       <h1>{{ gameComponent }}</h1>
-      <component :is="gameComponent" :gameID="gameID"></component>
+      <component :is="gameComponent" :gameID="gameID" :nickname="nickname"></component>
     </div>
 
   </div>
@@ -63,7 +68,8 @@ export default {
         { name: "Pictionary Telephone", gameType: "", numPlayers: 2, img: 'pictionary.png' },
         { name: "Go Fish", gameType: "", numPlayers: 2, img: 'gofish.png' },
         { name: "Poker", gameType: "", numPlayers: 2, img: 'poker.png' },
-        { name: "Roulette", gameType: "", numPlayers: 2, img: 'roulette.png' }
+        { name: "Roulette", gameType: "", numPlayers: 2, img: 'roulette.png' },
+        { name: "Blackjack", gameType: "", numPlayers: 2, img: 'blackjack.png' }
       ],
       offset: [0,4,2,0],
       searchTerm: ""
@@ -104,7 +110,8 @@ export default {
     // whenever you start searching for a game, in real time it reduces down to the game you've searched for
     filteredGameList: function() {
       return this.games.filter(game => {
-        return game.name.includes(this.searchTerm);
+        var gameName = game.name.toLowerCase() // disregard capitalization filter results
+        return gameName.includes(this.searchTerm);
       })
     }
   },
@@ -133,16 +140,20 @@ export default {
 }
 
 .button-style-1 {
+  margin-top: 20px;
   border: none;
   border-radius: 4px;
   padding: 10px 20px;
   color: #fff;
   background-color: #2ECC71;
   border-bottom: 4px solid #27AE60;
+  transition: 300ms;
 }
 .button-style-1:hover, .button-style-1:focus {
   background-color: #2d72e2;
   border-bottom: 4px solid #2055aa;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 .game {
   height: 250px;
