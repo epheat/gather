@@ -27,17 +27,25 @@ var gatherSocket = io.of('/gather');
 
 gatherSocket.on('connection', socket => {
 
-  socket.on('room', room => {
-    socket.join(room);
-
-    console.log("Client ID " + socket.id + " connected to room " + room + ".");
+  socket.on('room', data => {
+    socket.join(data.gameID);
+    for (var i=0; i<games.length; i++) {
+      if (games[i].gameID == data.gameID) {
+        for (var j=0; j<games[i].players.length; j++) {
+          if (games[i].players[j].nick == data.nick) {
+            games[i].players[j].socketID = socket.id;
+          }
+        }
+      }
+    }
+    console.log("Client ID " + socket.id + " connected to room " + data.gameID + ".");
   })
 
   socket.on('start', gameID => {
     // start the game
     for (var i=0; i<games.length; i++) {
       if (games[i].gameID == gameID) {
-        
+
         games[i].start();
       }
     }
@@ -61,8 +69,12 @@ function Game(gameType, ownerNick, ownerIP, numPlayers) {
 
   this.start = function() {
     if (this.gameType == "SimonSays") {
-      console.log("starting game...");
       gatherSocket.in(this.gameID).emit('message', "Beginning the game!");
+      for (var i=0; i<this.players.length; i++) {
+        console.log(this.players[i].socketID);
+        var color = {red: Math.floor(Math.random() * 255), green: Math.floor(Math.random() * 255), blue: Math.floor(Math.random() * 255) }
+        gatherSocket.connected[this.players[i].socketID].emit('color', color);
+      }
     } else if (this.gameType == "PictionaryTelephone") {
 
     }
