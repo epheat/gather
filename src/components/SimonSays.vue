@@ -8,7 +8,11 @@
 
     <div :style="simonButtonStyle" class="simon-button" @click="pressButton"></div>
 
-    <button @click="debug">debug</button>
+    <!-- <button @click="debug">debug</button> -->
+
+    <div v-if="losted">You losted.</div>
+
+
   </div>
 </template>
 
@@ -27,7 +31,10 @@ export default {
       color: { red: 0, green: 0, blue: 0 },
       mayStartGame: false,
       message: "Waiting for other players...",
-      flashing: false
+      flashing: false,
+      seat: 0,
+      playing: false,
+      losted: false
     }
   },
   mounted: function() {
@@ -43,23 +50,36 @@ export default {
     });
     socket.on('color', color => {
       this.color = color;
-    })
-    socket.emit('room', {'gameID': this.gameID, 'nick': this.nickname});
+      this.message = "";
+      this.playing = true;
+    });
+    socket.on('lose', data => {
+      this.losted = true;
+      this.playing = false;
+    });
+    socket.emit('room', {'gameID': this.gameID, 'nick': this.nickname}, seat => {
+      this.seat = seat;
+    });
+
   },
   // component methods
   methods: {
     startGame: function() {
       this.mayStartGame = false;
+      this.playing = true;
       socket.emit('start', this.gameID);
     },
     flash: function() {
       this.flashing = true;
       setTimeout( () => {
         this.flashing = false;
-      }, 200);
+      }, 100);
     },
     pressButton: function() {
-      socket.emit('press');
+      if (this.playing) {
+        this.flash();
+        socket.emit('press', {gameID: this.gameID, seat: this.seat} );
+      }
     },
     debug: function() {
       this.flash();
@@ -87,11 +107,13 @@ export default {
 
 }
 .simon-button {
-  max-width: 200px;
-  height: 200px;
+  margin: 0 auto;
+  max-width: 250px;
+  height: 250px;
   background-color: green;
+  cursor: pointer;
 
-  transition: background-color 0.2s;
+  transition: background-color 0.05s;
 }
 .white {
   background-color: rgb(255, 252, 0);
