@@ -3,15 +3,15 @@
     <div id="game-selector" v-if="!playingGame">
       <h1>Gather</h1><hr>
       <p>
-        Provide a nickname:
-        <input type="text" placeholder="Username" v-model="nickname"></input>
+        Provide a Nickname:
+        <input type="text" placeholder="Username (Required)" v-model="nickname"></input>
       </p>
       <p>
-        Join an existing game:
+        Join an Existing Game:
         <input type="text" placeholder="Game ID" v-model="gameID"></input>
         <button @click="joinGame()">Join</button>
       </p>
-      <h2>Or start a new game:</h2>
+      <h2>Or Start a New Game:</h2>
       <p>
         Search Game:
         <input type="text" id="searchGame" placeholder="Search Game" v-model="searchTerm"></input>
