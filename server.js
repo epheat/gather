@@ -71,7 +71,6 @@ gatherSocket.on('connection', socket => {
       }
     }
   })
-
 })
 
 
