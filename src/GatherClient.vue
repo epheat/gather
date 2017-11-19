@@ -141,6 +141,7 @@ export default {
   color: #fff;
   background-color: #2ECC71;
   border-bottom: 4px solid #27AE60;
+  transition: 300ms;
 }
 .button-style-1:hover, .button-style-1:focus {
   background-color: #2d72e2;
