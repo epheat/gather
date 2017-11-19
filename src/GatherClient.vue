@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="games-container">
-        <div :class="{'col-md-offset-4': filteredGameList.length == 1, 'col-md-offset-2':filteredGameList.length == 2}"></div>
+        <div :class="{'col-md-4': filteredGameList.length == 1, 'col-md-2':filteredGameList.length == 2}"></div>
         <div class="game-container col-xs-12 col-sm-6 col-md-4"  v-for="(game, index) in filteredGameList">
           <div class="game" :style='"background: url(" + game.img + ") #000; background-size: 100%;"'>
             <h3>{{ game.name }}</h3>
