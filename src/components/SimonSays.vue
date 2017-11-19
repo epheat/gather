@@ -4,13 +4,13 @@
 <template>
   <div class="component-container">
     <p id="game-message">{{ message }}</p>
-    <button v-if="mayStartGame" @click="startGame">Start game!</button>
+    <button id="start-game" v-if="mayStartGame" @click="startGame">Start game!</button>
 
     <div :style="simonButtonStyle" class="simon-button" @click="pressButton"></div>
 
     <!-- <button @click="debug">debug</button> -->
 
-    <div v-if="losted">You losted.</div>
+    <div id="losted" v-if="losted">You losted.</div>
 
 
   </div>
@@ -123,5 +123,8 @@ export default {
 }
 .white {
   background-color: rgb(255, 252, 0);
+}
+#start-game {
+  position: absolute;
 }
 </style>

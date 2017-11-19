@@ -5,7 +5,7 @@
         <img src="logo.png" id="logo" alt="gather logo">
         <div class="container game-menu">
           <div class="col-md-6 join-section">
-            <input type="text" placeholder="Username (Required)" id="nickname" v-model="nickname"></input>
+            <input type="text" required placeholder="Username" id="nickname" v-model="nickname"></input>
             <input type="text" placeholder="Game ID" id="gameID" v-model="gameID"></input><button id="join-button" @click="joinGame()">Join</button>
           </div>
           <div class="col-md-4 col-md-offset-2">
@@ -168,9 +168,10 @@ input[type="text"] {
 
 @media (max-width: 452px) {
   #nickname, #gameID {
-    width: 42.4%;
+    width: 40%;
   }
 }
+
 
 @media (max-width: 991px) {
   #searchGame {
@@ -200,6 +201,7 @@ img#logo {
   background-color: #2ECC71;
   color: white;
   padding: 10px;
+  margin-left: -5px;
 }
 .game-menu {
   padding: 20px;
