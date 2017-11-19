@@ -4,17 +4,17 @@
       <h1>Gather</h1><hr>
       <p>
         Provide a nickname:
-        <input type="text" v-model="nickname"></input>
+        <input type="text" placeholder="Username" v-model="nickname"></input>
       </p>
       <p>
         Join an existing game:
-        <input type="text" v-model="gameID"></input>
+        <input type="text" placeholder="Game ID" v-model="gameID"></input>
         <button @click="joinGame()">Join</button>
       </p>
       <h2>Or start a new game:</h2>
       <p>
         Search Game:
-        <input type="text" id="searchGame" v-model="searchTerm"></input>
+        <input type="text" id="searchGame" placeholder="Search Game" v-model="searchTerm"></input>
       </p>
       <div class="row games-container">
         <div class="game-container col-xs-12 col-sm-6 col-md-4" v-for="(game, index) in filteredGameList">
