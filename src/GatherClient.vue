@@ -63,7 +63,8 @@ export default {
         { name: "Pictionary Telephone", gameType: "", numPlayers: 2, img: 'pictionary.png' },
         { name: "Go Fish", gameType: "", numPlayers: 2, img: 'gofish.png' },
         { name: "Poker", gameType: "", numPlayers: 2, img: 'poker.png' },
-        { name: "Roulette", gameType: "", numPlayers: 2, img: 'roulette.png' }
+        { name: "Roulette", gameType: "", numPlayers: 2, img: 'roulette.png' },
+        { name: "Blackjack", gameType: "", numPlayers: 2, img: 'blackjack.png' }
       ],
       searchTerm: ""
     }
