@@ -3,7 +3,7 @@
 
 <template>
   <div class="component-container">
-    <p id="game-ID">Share this code with your friends: {{gameID}}</p>
+    <p id="game-ID" v-if="!playing && !losted">Share this code with your friends: {{gameID}}</p>
     <p id="game-message">{{ message }}</p>
     <button id="start-game" class="button-style-1" v-if="mayStartGame" @click="startGame">Start game!</button>
 
