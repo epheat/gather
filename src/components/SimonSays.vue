@@ -3,6 +3,7 @@
 
 <template>
   <div class="component-container">
+    <p id="game-I">{{gameID}}></p>
     <p id="game-message">{{ message }}</p>
     <button id="start-game" v-if="mayStartGame" @click="startGame">Start game!</button>
 
@@ -10,7 +11,7 @@
 
     <!-- <button @click="debug">debug</button> -->
 
-    <div id="losted" v-if="losted">You losted.</div>
+    <div id="losted" v-if="losted">You lost</div>
 
 
   </div>

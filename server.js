@@ -147,10 +147,12 @@ app.post('/joinGame', function(request, response) {
   var nick = request.body.nickname;
   var ip = request.connection.remoteAddress;
 
+  var found = false;
   // search for that gameID in currently running games
   for (var i=0; i<games.length; i++) {
 
     if (games[i].gameID == gameID) {
+      found = true;
       if (games[i].players.length < games[i].numPlayers) {
         // add the player to the game
         games[i].players.push({ 'nick': nick, 'ip': ip });
@@ -166,6 +168,10 @@ app.post('/joinGame', function(request, response) {
         response.send('Game full.');
       }
     }
+  }
+
+  if(!found){
+    response.send('No Game Found');
   }
 
 })
