@@ -3,7 +3,7 @@
 
 <template>
   <div class="component-container">
-    <p id="game-I">{{gameID}}</p>
+    <p id="game-ID">Share this code with your friends: {{gameID}}</p>
     <p id="game-message">{{ message }}</p>
     <button id="start-game" class="button-style-1" v-if="mayStartGame" @click="startGame">Start game!</button>
 
@@ -107,13 +107,16 @@ export default {
 .component-container {
 
 }
-#game-title, #game-message {
+#game-title, #game-message, #game-ID {
   position: absolute;
   color: white;
   padding: 50px;
 }
 #game-message {
   margin-top: 65px;
+}
+#game-ID{
+  margin-top: -20px;
 }
 .simon-button {
   height: 250px;
