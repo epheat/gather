@@ -145,6 +145,7 @@ export default {
 .button-style-1:hover, .button-style-1:focus {
   background-color: #2d72e2;
   border-bottom: 4px solid #2055aa;
+  font-size: 18px;
 }
 .game {
   height: 250px;
