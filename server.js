@@ -27,13 +27,14 @@ var gatherSocket = io.of('/gather');
 
 gatherSocket.on('connection', socket => {
 
-  socket.on('room', data => {
+  socket.on('room', (data, callback) => {
     socket.join(data.gameID);
     for (var i=0; i<games.length; i++) {
       if (games[i].gameID == data.gameID) {
         for (var j=0; j<games[i].players.length; j++) {
           if (games[i].players[j].nick == data.nick) {
             games[i].players[j].socketID = socket.id;
+            callback(j);
           }
         }
       }
@@ -51,6 +52,26 @@ gatherSocket.on('connection', socket => {
     }
   })
 
+  socket.on('press', data => {
+    for (var i=0; i<games.length; i++) {
+      if (games[i].gameID == data.gameID) {
+        if (data.seat == games[i].sequence[games[i].sequenceProgress]) {
+          games[i].sequenceProgress++;
+          if (games[i].sequenceProgress == games[i].sequence.length) {
+            console.log("well done. adding another color to the sequence.");
+            games[i].sequenceProgress = 0;
+            games[i].sequence.push(Math.floor(Math.random() * games[i].players.length));
+            games[i].flashInSequence(0);
+          }
+        } else {
+          console.log("loser.");
+          games[i].sequenceProgress = 0;
+          gatherSocket.in(games[i].gameID).emit('lose');
+        }
+      }
+    }
+  })
+
 })
 
 
@@ -62,6 +83,10 @@ function Game(gameType, ownerNick, ownerIP, numPlayers) {
   this.numPlayers = numPlayers;
   this.players = [{ 'nick': ownerNick, 'ip': ownerIP }];
   // TODO: as long as a game exists with that gameID, keep regenerating IDs
+
+  this.sequence = [];
+  this.sequenceProgress = 0;
+  this.phase = 'playback'; // can also be 'awaitingresponse'
 
   this.mayStart = function() {
     gatherSocket.in(this.gameID).emit('mayStart');
@@ -75,9 +100,26 @@ function Game(gameType, ownerNick, ownerIP, numPlayers) {
         var color = {red: Math.floor(Math.random() * 255), green: Math.floor(Math.random() * 255), blue: Math.floor(Math.random() * 255) }
         gatherSocket.connected[this.players[i].socketID].emit('color', color);
       }
+      // first sequence is 4 long.
+      this.sequence = [Math.floor(Math.random()*this.players.length), Math.floor(Math.random()*this.players.length), Math.floor(Math.random()*this.players.length), Math.floor(Math.random()*this.players.length), Math.floor(Math.random()*this.players.length), Math.floor(Math.random()*this.players.length)];
+      this.flashInSequence(0);
     } else if (this.gameType == "PictionaryTelephone") {
 
     }
+  }
+
+  this.flashInSequence = function(index) {
+    setTimeout( () => {
+      gatherSocket.connected[this.players[this.sequence[index]].socketID].emit('flash');
+      index++;
+      if (index < this.sequence.length) {
+        this.flashInSequence(index);
+      } else {
+        console.log("done flashing sequence.");
+        console.log(this.sequence);
+        this.phase = 'awaitingresponse';
+      }
+    }, 400);
   }
 }
 const ALLOWED_CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
