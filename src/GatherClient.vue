@@ -16,13 +16,8 @@
         Search Game:
         <input type="text" id="searchGame" placeholder="Search Game" v-model="searchTerm"></input>
       </p>
-<<<<<<< HEAD
       <div class="row games-container">
-        <div class='"game-container col-xs-12 col-sm-6 col-md-4 col-md-offset-' offset[filteredGameList.length]'"' :class="'hi'" v-for="(game, index) in filteredGameList">
-=======
-      <div class="games-container">
-        <div class="game-container col-xs-12 col-sm-6 col-md-4" v-for="(game, index) in filteredGameList">
->>>>>>> 9b4c38271d20f5f5c4abcd93fb63ca00d2b75d73
+        <div class='"game-container col-xs-12 col-sm-6 col-md-4 col-md-offset-''"' :class="'hi'" v-for="(game, index) in filteredGameList">
           <div class="game" :style='"background: url(" + game.img + ") #000; background-size: 100%;"'>
             <h3>{{ game.name }}</h3>
             <b>Number of players</b>
